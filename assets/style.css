@@ -1,0 +1,296 @@
+/* Rehabit Academy prototype — stylesheet 2
+   Tokens and component patterns extracted from https://rehabit.co.za/ on 2026-11-06.
+   See DESIGN_TOKENS.md for the source of every value and for the contrast audit.
+   Structure follows ORG_SITE_DESIGN.md: navy header, one conversion goal,
+   Montserrat headings, Poppins body, 10px cards, red/orange call to action. */
+
+/* ---------- 1. Tokens ---------- */
+:root{
+  /* Colour (extracted) */
+  --orange:#ff7c44;        /* brand accent. Never carries text on white. */
+  --orange-ink:#cc4a1a;    /* accent dark enough for text and links. */
+  --orange-hover:#b8420f;
+  --red:#ff1d25;           /* hero CTA fill, large labels only. */
+  --red-2:#e83024;         /* CTA fill in Rehabit's blog rail. */
+  --cta:#c9281d;           /* CTA fill that passes 4.5:1 with white text. */
+  --cta-hover:#a3201a;
+  --navy:#002b49;          /* header, dark panels, headings. */
+  --navy-2:#02243b;
+  --navy-3:#0e3c5f;
+  --cream:#ece7e1;         /* light band, "OFF" column. */
+  --peach:#fff5ef;
+  --mist:#f0f5fa;
+  --ink:#1f282f;           /* body copy. */
+  --muted:#767676;         /* Rehabit uses #888/#999. #767676 holds 4.5:1. */
+  --border:#e1e1e1;
+  --border-2:#eee;
+  --white:#fff;
+  --good:#1c7a4d;          /* pass state only. Not a Rehabit colour. */
+
+  /* Radius (extracted: cards 10px, buttons 4-6px, chips 50px) */
+  --r-card:10px; --r-btn:6px; --r-chip:50px; --r-input:8px;
+
+  /* Elevation (extracted) */
+  --sh-card:0 2px 12px rgba(0,0,0,.12);
+  --sh-float:0 4px 8px rgba(0,0,0,.3);
+  --sh-pop:0 8px 24px rgba(0,0,0,.15);
+
+  /* Measure (extracted: .container 1200px, .container-1500 1500px) */
+  --container:1200px;
+  --container-wide:1500px;
+  --pad-y:48px;
+
+  /* Type (extracted) */
+  --head:"Montserrat",system-ui,sans-serif;
+  --body:"Poppins","Montserrat",system-ui,sans-serif;
+}
+
+/* ---------- 2. Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font:16px/1.7 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--head);color:var(--navy);margin:0 0 16px;line-height:1.2}
+h2{font-size:32px;font-weight:700}
+h3{font-size:22px;font-weight:500}
+h4{font-size:18px;font-weight:600}
+p{margin:0 0 16px}
+ul{margin:0 0 16px;padding-left:20px}
+li{margin:6px 0}
+a{color:var(--orange-ink);text-decoration:none;border-bottom:1px solid rgba(255,124,68,.33)}
+a:hover{border-bottom-color:var(--orange)}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:2px}
+img,svg{max-width:100%;height:auto}
+.shell{min-height:100vh;display:flex;flex-direction:column}
+.small{font-size:13px}
+.muted{color:var(--muted)}
+.center{text-align:center}
+.hide{display:none!important}
+.skip{position:absolute;left:-9999px;top:0;background:var(--navy);color:var(--white);padding:10px 16px;z-index:100}
+.skip:focus{left:8px;top:8px}
+
+/* ---------- 3. Header and navigation ---------- */
+.header{background:var(--navy);position:sticky;top:0;z-index:20;box-shadow:var(--sh-float)}
+.nav{max-width:var(--container);margin:auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--white);font-family:var(--head);font-size:22px;font-weight:700;letter-spacing:-.3px;border:0;text-decoration:none}
+.brand:hover{border:0}
+.brand-mark{width:26px;height:26px;border-radius:50% 50% 50% 4px;background:var(--orange);display:inline-grid;place-items:center;color:var(--navy);font-size:15px;font-weight:700;flex:none}
+.brand small{font-size:10px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:var(--cream);border:1px solid rgba(236,231,225,.4);border-radius:var(--r-chip);padding:4px 9px}
+.links{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.links a{color:var(--cream);font-size:15px;font-weight:500;border:0;line-height:1;display:inline-flex;align-items:center;gap:6px;padding:6px 0}
+.links a:hover{color:var(--orange)}
+.links a.active{color:var(--white);font-weight:600;border-bottom:2px solid var(--orange);border-radius:0}
+.links a.nav-cta{background:var(--cta);color:var(--white);border-radius:var(--r-btn);padding:10px 18px;font-weight:700}
+.links a.nav-cta:hover{background:var(--cta-hover);color:var(--white)}
+.nav-toggle{display:none;background:transparent;border:0;color:var(--white);cursor:pointer;padding:6px}
+.nav-toggle .material-symbols-outlined{font-size:28px}
+
+/* ---------- 4. Page frame ---------- */
+.main{flex:1;width:100%;max-width:var(--container);margin:0 auto;padding:40px 24px 72px}
+.main.wide{max-width:var(--container-wide)}
+.eyebrow{font-family:var(--head);text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-weight:700;color:var(--orange-ink);margin:0 0 10px}
+.page-title{font-size:44px;font-weight:700;margin:0 0 12px}
+.section{margin:56px 0}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
+.section-head h2{margin:0}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+
+/* ---------- 5. Hero (ORG_SITE_DESIGN.md section 5.2) ---------- */
+.hero{position:relative;background:linear-gradient(135deg,var(--navy-2) 0%,var(--navy) 55%,var(--navy-3) 100%);border-radius:var(--r-card);color:var(--white);padding:64px 40px 56px;text-align:center;overflow:hidden}
+.hero::after,.hero::before{content:"";position:absolute;border-radius:50%;border:2px solid rgba(255,124,68,.28);pointer-events:none}
+.hero::after{right:-110px;top:-150px;width:340px;height:340px}
+.hero::before{right:60px;top:-60px;width:150px;height:150px;border-color:rgba(236,231,225,.16)}
+.hero .eyebrow{color:var(--orange)}
+.hero h1{color:var(--white);font-size:clamp(36px,6vw,64px);font-weight:600;margin:14px auto 12px;max-width:16ch}
+.hero p{color:var(--cream);font-size:22px;font-weight:400;line-height:1.5;max-width:60ch;margin:0 auto 28px}
+.hero .button-row{justify-content:center}
+.button-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+
+.hero{margin-bottom:0}
+.hero+.shot{margin-top:-34px;position:relative;z-index:2}
+
+/* Product screenshot placeholder. Do not hot-link Rehabit screenshots. */
+.shot{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:var(--sh-pop);overflow:hidden;margin-top:28px;text-align:left}
+.shot-bar{display:flex;align-items:center;gap:6px;background:var(--cream);padding:10px 14px;border-bottom:1px solid var(--border)}
+.shot-bar i{width:10px;height:10px;border-radius:50%;background:#ccc;display:block}
+.shot-bar span{margin-left:auto;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.shot-body{display:grid;grid-template-columns:200px 1fr;gap:18px;padding:20px;background:var(--mist)}
+.shot-side{background:var(--navy);border-radius:8px;min-height:190px;padding:14px}
+.shot-side b{display:block;height:9px;border-radius:4px;background:rgba(236,231,225,.45);margin:0 0 12px;width:70%}
+.shot-side b:nth-child(2){width:90%;background:var(--orange)}
+.shot-side b:nth-child(n+3){width:60%}
+.shot-main{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+.shot-card{background:var(--white);border:1px solid var(--border-2);border-radius:8px;min-height:78px;padding:12px;box-shadow:var(--sh-card)}
+.shot-card b{display:block;height:8px;width:60%;background:var(--navy);border-radius:4px;margin-bottom:10px}
+.shot-card i{display:block;height:6px;background:var(--border);border-radius:3px;margin-bottom:6px}
+.shot-card.wide{grid-column:span 3;min-height:64px}
+
+/* ---------- 6. Buttons ---------- */
+.btn,.btn-secondary,.btn-ghost{appearance:none;border:0;border-radius:var(--r-btn);padding:16px 24px;font-family:var(--head);font-weight:700;font-size:16px;line-height:1;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background-color .2s ease-in-out,color .2s ease-in-out,transform .15s ease-in-out,border-color .2s}
+.btn{background:var(--cta);color:var(--white)}
+.btn:hover{background:var(--cta-hover);text-decoration:none;transform:translateY(-1px)}
+.btn-secondary{background:var(--orange);color:var(--navy)}
+.btn-secondary:hover{background:var(--orange-hover);color:var(--white);text-decoration:none;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--navy);background:var(--mist);text-decoration:none}
+.btn:disabled,.btn[aria-disabled=true]{background:var(--cream);color:var(--muted);cursor:not-allowed;transform:none}
+.btn .material-symbols-outlined,.btn-secondary .material-symbols-outlined{font-size:20px}
+
+/* ---------- 7. Cards and grids ---------- */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:var(--white);border:1px solid var(--border-2);border-radius:var(--r-card);padding:28px;box-shadow:var(--sh-card)}
+.card h3{margin:12px 0 8px}
+.card p:last-child{margin-bottom:0}
+.card .btn,.card .btn-secondary,.card .btn-ghost{width:100%;margin-top:18px}
+.card.featured{border:2px solid var(--orange);position:relative}
+.card.featured::before{content:"";position:absolute;inset:0;border-radius:var(--r-card);box-shadow:var(--sh-float);pointer-events:none;opacity:0}
+.card.featured:hover::before{opacity:1}
+.card > .btn,.card > .btn-secondary{width:100%}
+
+/* Tags, pills, chips */
+.tag{font-family:var(--head);font-size:11px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;border-radius:var(--r-chip);background:var(--mist);color:var(--navy);padding:6px 12px;display:inline-block}
+.tag.warn{background:var(--peach);color:var(--orange-ink);border:1px solid rgba(255,124,68,.45)}
+.tag.gray{background:var(--cream);color:#4a4a4a}
+.tag.on{background:var(--orange);color:var(--navy)}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:var(--r-chip);background:var(--mist);font-size:12px;font-weight:500;padding:4px 10px;color:var(--navy)}
+.pill .material-symbols-outlined{font-size:15px}
+
+/* ---------- 8. Notices ---------- */
+.notice{border-left:4px solid var(--orange);padding:14px 18px;background:var(--peach);border-radius:0 var(--r-btn) var(--r-btn) 0;color:#5a3826;margin:18px 0;font-size:14px;line-height:1.6}
+.notice.green{border-color:var(--navy);background:var(--mist);color:var(--navy)}
+.notice.danger{border-color:var(--red-2);background:#fdeceb;color:#7d1a15}
+
+/* ---------- 9. Forms ---------- */
+.form{max-width:640px;margin:auto;background:var(--white);border:1px solid var(--border-2);border-radius:var(--r-card);padding:36px;box-shadow:var(--sh-card)}
+.form label{font-family:var(--head);font-size:13px;font-weight:600;display:block;margin:18px 0 6px;color:var(--navy)}
+.form input,.form select,.form textarea,.search,input,select,textarea{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:var(--r-input);background:var(--white);color:var(--ink);font:inherit}
+.form input:focus,.form select:focus,.form textarea:focus,.search:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,124,68,.35)}
+.form .btn{width:100%;margin-top:24px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end}
+.field-with-icon{position:relative}
+.field-with-icon .material-symbols-outlined{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:20px;pointer-events:none}
+.field-with-icon input{padding-left:42px}
+
+/* ---------- 10. Metrics, stats band ---------- */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.metric{background:var(--white);padding:26px;border-radius:var(--r-card);border:1px solid var(--border-2);box-shadow:var(--sh-card)}
+.metric strong{font-family:var(--head);font-size:40px;font-weight:700;color:var(--navy);display:block;line-height:1.15;margin-top:6px}
+.metric .unit{font-size:15px;font-weight:500;color:var(--muted)}
+.statband{background:var(--navy);border-radius:var(--r-card);color:var(--white);padding:36px 24px}
+.statband .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.stat{text-align:center;padding:0 12px;border-right:1px solid rgba(170,170,170,.55)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:var(--head);font-size:30px;font-weight:700;color:var(--orange)}
+.stat span{display:block;font-size:12px;line-height:1.4;color:var(--cream);margin-top:4px}
+
+/* ---------- 11. Course cards, reader, quiz ---------- */
+.course-emoji{font-size:52px;background:var(--peach);border:1px solid rgba(255,124,68,.25);border-radius:var(--r-card);height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.course-meta{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.reader{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px}
+.reader article{background:var(--white);border:1px solid var(--border-2);border-radius:var(--r-card);padding:40px;box-shadow:var(--sh-card);max-width:100%}
+.reader article p{max-width:74ch}
+.reader article h2{margin-top:32px}
+.reader article .btn{margin-top:20px}
+.reader aside{align-self:start;position:sticky;top:96px}
+.progress{height:8px;background:var(--border-2);border-radius:var(--r-chip);overflow:hidden}
+.progress>span{height:100%;display:block;background:var(--orange)}
+.quiz{max-width:780px;margin:auto}
+.question{padding:20px 0;border:0;min-width:0;border-bottom:1px solid var(--border-2)}
+.question:last-of-type{border-bottom:0}
+.notice h3 .material-symbols-outlined,.notice>.material-symbols-outlined{vertical-align:-4px;margin-right:8px}
+.question legend{font-family:var(--head);font-size:17px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.choice{border:1.5px solid var(--border);padding:14px;border-radius:var(--r-input);margin:8px 0;display:flex;gap:10px;align-items:center;cursor:pointer;background:var(--white);font-size:15px;transition:border-color .15s,background-color .15s}
+.choice:hover{border-color:var(--orange)}
+.choice:has(input:checked){border-color:var(--navy);background:var(--mist)}
+.choice input{width:auto;accent-color:var(--orange)}
+
+/* ---------- 12. Tables ---------- */
+.table-wrap{overflow-x:auto}
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table th,.table td{text-align:left;padding:14px;border-bottom:1px solid var(--border-2);vertical-align:middle}
+.table th{font-family:var(--head);font-size:12px;color:var(--navy);text-transform:uppercase;letter-spacing:.08em;background:var(--mist)}
+.table tbody tr:hover{background:var(--peach)}
+
+/* ---------- 13. Pricing (section 6 pricing card) ---------- */
+.price{font-family:var(--head);font-size:40px;font-weight:700;color:var(--navy);margin:10px 0 4px;line-height:1}
+.price small{font-size:14px;font-weight:400;color:var(--muted);font-family:var(--body)}
+.check{list-style:none;padding:0;margin:16px 0 0}
+.check li{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--muted);font-weight:500;margin:10px 0}
+.check .material-symbols-outlined{font-size:19px;color:var(--orange-ink);flex:none}
+.check li.off .material-symbols-outlined{color:#b0b0b0}
+
+/* ---------- 14. Comparison OFF / ON (section 6 comparison table) ---------- */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.compare-col{border-radius:var(--r-card);padding:24px}
+.compare-col.off{background:var(--cream);color:#1a1a1a;filter:grayscale(100%)}
+.compare-col.on{background:var(--orange);color:var(--navy);box-shadow:var(--sh-float)}
+.compare-col h3{margin-top:0;font-size:18px;text-transform:uppercase;letter-spacing:.08em}
+.compare-col li{font-size:15px}
+.compare-col .material-symbols-outlined{font-size:18px}
+
+/* ---------- 15. Feature rows (section 5.5, alternating) ---------- */
+.feature-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin:56px 0}
+.feature-row:nth-child(even) .shot{order:-1}
+.feature-row h2{font-size:32px}
+.feature-row p{color:var(--muted);font-size:17px}
+.feature-row.alt{background:var(--mist);border-radius:var(--r-card);padding:36px}
+
+/* ---------- 16. Certificate sheet ---------- */
+.cert{background:var(--white);border:10px double var(--cream);max-width:840px;margin:0 auto;padding:56px 32px;text-align:center;border-radius:var(--r-card);box-shadow:var(--sh-card)}
+.cert .brand{color:var(--navy);justify-content:center}
+.cert .brand small{color:var(--orange-ink);border-color:rgba(204,74,26,.45)}
+.cert h1,.cert h2{color:var(--navy)}
+.cert .name{font-family:var(--head);font-size:30px;font-weight:700;letter-spacing:.04em;color:var(--orange-ink);margin:22px 0 6px;text-transform:uppercase}
+
+/* ---------- 17. Footer (section 5.14) ---------- */
+.footer{background:var(--navy);color:var(--cream);text-align:center;padding:34px 24px;font-size:13px;line-height:1.7;margin-top:auto}
+.footer a{color:var(--orange);border-bottom-color:rgba(255,124,68,.4)}
+.footer a:hover{color:var(--white)}
+
+/* ---------- 18. Responsive (section 8) ---------- */
+@media (max-width:1000px){
+  .nav{height:auto;padding:14px 20px;flex-wrap:wrap}
+  .links{gap:18px}
+  .reader{grid-template-columns:1fr}
+  .reader aside{position:static}
+  .statband .stats-grid{grid-template-columns:repeat(3,1fr);gap:20px 0}
+  .stat:nth-child(3n){border-right:0}
+  .feature-row{grid-template-columns:1fr;gap:24px}
+  .feature-row:nth-child(even) .shot{order:0}
+}
+@media (max-width:850px){
+  .grid,.grid.two,.metrics,.form-grid{grid-template-columns:1fr}
+  .main{padding:28px 16px 56px}
+  .page-title{font-size:32px}
+  .hero{padding:36px 22px}
+  .hero p{font-size:18px}
+  .card,.reader article,.form{padding:22px}
+  .shot-body{grid-template-columns:1fr}
+  .shot-side{min-height:60px}
+  .shot-main{grid-template-columns:repeat(2,1fr)}
+  .shot-card.wide{grid-column:span 2}
+  .compare{grid-template-columns:1fr}
+  .topline{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:580px){
+  .links{display:none;width:100%;flex-direction:column;align-items:stretch;gap:4px;border-top:1px solid rgba(236,231,225,.25);padding-top:12px}
+  .links.open{display:flex}
+  .links a{padding:12px 6px;font-size:16px}
+  .links a.active{border-bottom:0;box-shadow:inset 3px 0 0 var(--orange)}
+  .nav-toggle{display:inline-flex}
+  .statband .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3n){border-right:1px solid rgba(170,170,170,.55)}
+  .stat:nth-child(2n){border-right:0}
+  .shot-main{grid-template-columns:1fr}
+  .shot-card.wide{grid-column:span 1}
+  .btn,.btn-secondary,.btn-ghost{width:100%}
+}
+@media print{
+  .header,.footer,.nav-toggle,.btn,.btn-secondary,.btn-ghost{display:none!important}
+  body{background:#fff}
+  .card,.reader article{box-shadow:none;border:1px solid #999}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
